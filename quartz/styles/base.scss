@@ -203,6 +203,10 @@ a {
   & article {
     &>h1 {
       font-size: 2rem;
+
+      @media all and ($mobile) {
+        font-size: 1.75rem;
+      }
     }
 
     & li:has(> input[type="checkbox"]) {

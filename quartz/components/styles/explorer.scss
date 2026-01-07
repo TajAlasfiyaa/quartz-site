@@ -238,6 +238,17 @@ li:has(> .folder-outer:not(.open))>.folder-container>svg {
       }
     }
 
+    // RTL support for mobile explorer animation
+    html[dir="rtl"] & {
+      &.collapsed>.explorer-content {
+        transform: translateX(100vw);
+      }
+
+      &:not(.collapsed)>.explorer-content {
+        transform: translateX(0);
+      }
+    }
+
     .explorer-content {
       box-sizing: border-box;
       z-index: 100;
