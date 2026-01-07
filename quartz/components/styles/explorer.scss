@@ -15,11 +15,27 @@
 
     // Sticky top bar (stays in place when scrolling down on mobile).
     .sidebar.left:has(.explorer) {
-      box-sizing: border-box;
-      position: sticky;
+      position: fixed; // Force fixed to stay at top
+      top: 0;
+      width: 100%;
+      z-index: 1000;
       background-color: var(--light);
-      padding: 1rem 0 1rem 0;
+      padding: 0.5rem 1rem; // Reduce vertical padding, add horizontal
       margin: 0;
+      border-bottom: 1px solid var(--lightgray); // Visual separation
+
+      // Flex layout for better alignment
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+
+      transition: transform 0.3s ease-in-out;
+
+      &.nav-hidden {
+        transform: translateY(-100%);
+      }
     }
 
     .hide-until-loaded~.explorer-content {

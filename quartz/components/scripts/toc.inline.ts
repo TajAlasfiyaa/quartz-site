@@ -31,6 +31,21 @@ function setupToc() {
     if (!button || !content) return
     button.addEventListener("click", toggleToc)
     window.addCleanup(() => button.removeEventListener("click", toggleToc))
+
+    // Mobile logic
+    const mobileButton = toc.querySelector(".mobile-toc")
+    if (mobileButton) {
+      mobileButton.addEventListener("click", () => {
+        content.classList.toggle("mobile-active")
+        document.body.classList.toggle("lock-scroll")
+      })
+      window.addCleanup(() => {
+        mobileButton.removeEventListener("click", () => {
+          content.classList.remove("mobile-active")
+          document.body.classList.remove("lock-scroll")
+        })
+      })
+    }
   }
 }
 

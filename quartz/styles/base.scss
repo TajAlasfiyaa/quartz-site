@@ -285,7 +285,12 @@ a {
         height: unset;
         flex-direction: row;
         padding: 0;
-        padding-top: 2rem;
+        padding-top: 1rem;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        background: var(--light);
       }
     }
 
@@ -312,56 +317,60 @@ a {
         }
 
         &>.toc {
-          display: none;
+          // display: none;
+          // We need TOC to be present for the mobile button to show.
+          // The content itself is hidden by toc.scss unless active.
+          display: block;
         }
       }
     }
+  }
 
-    & .page-header,
-    & .page-footer {
-      margin-top: 1rem;
+  & .page-header,
+  & .page-footer {
+    margin-top: 1rem;
+  }
+
+  & .page-header {
+    grid-area: grid-header;
+    margin: $topSpacing 0 0 0;
+
+    @media all and ($mobile) {
+      margin-top: 5rem; // Increased to account for fixed navbar height
+      padding: 0;
+    }
+  }
+
+  & .center>article {
+    grid-area: grid-center;
+  }
+
+  & footer {
+    grid-area: grid-footer;
+  }
+
+  & .center,
+  & footer {
+    max-width: 100%;
+    min-width: 100%;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+
+    @media all and ($tablet) {
+      margin-inline-end: 0;
     }
 
-    & .page-header {
-      grid-area: grid-header;
-      margin: $topSpacing 0 0 0;
-
-      @media all and ($mobile) {
-        margin-top: 0;
-        padding: 0;
-      }
-    }
-
-    & .center>article {
-      grid-area: grid-center;
-    }
-
-    & footer {
-      grid-area: grid-footer;
-    }
-
-    & .center,
-    & footer {
-      max-width: 100%;
-      min-width: 100%;
-      margin-inline-start: auto;
-      margin-inline-end: auto;
-
-      @media all and ($tablet) {
-        margin-inline-end: 0;
-      }
-
-      @media all and ($mobile) {
-        margin-inline-end: 0;
-        margin-inline-start: 0;
-      }
-    }
-
-    & footer {
+    @media all and ($mobile) {
+      margin-inline-end: 0;
       margin-inline-start: 0;
     }
   }
+
+  & footer {
+    margin-inline-start: 0;
+  }
 }
+
 
 .footnotes {
   margin-top: 2rem;
@@ -693,4 +702,30 @@ iframe.pdf {
   background: var(--secondary);
   transition: width 0.2s ease;
   z-index: 9999;
+}
+
+@media print {
+
+  .page-header,
+  .page-footer,
+  .left.sidebar,
+  .right.sidebar,
+  .explorer,
+  .mobile-toc,
+  button.mobile-toc,
+  .backlinks,
+  .graph,
+  .toc,
+  .print-page {
+    display: none !important;
+  }
+
+  .center,
+  .page,
+  body {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
 }

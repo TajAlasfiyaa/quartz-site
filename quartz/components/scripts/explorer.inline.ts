@@ -49,9 +49,9 @@ function toggleFolder(evt: MouseEvent) {
   const folderContainer = (
     isSvg
       ? // svg -> div.folder-container
-        target.parentElement
+      target.parentElement
       : // button.folder-button -> div -> div.folder-container
-        target.parentElement?.parentElement
+      target.parentElement?.parentElement
   ) as MaybeHTMLElement
   if (!folderContainer) return
   const childFolderContainer = folderContainer.nextElementSibling as MaybeHTMLElement
@@ -299,3 +299,24 @@ window.addEventListener("resize", function () {
 function setFolderState(folderElement: HTMLElement, collapsed: boolean) {
   return collapsed ? folderElement.classList.remove("open") : folderElement.classList.add("open")
 }
+
+// Scroll detection for hiding mobile navbar
+let lastScrollTop = 0
+document.addEventListener("scroll", () => {
+  const mobileExplorer = document.querySelector(".sidebar.left:has(.explorer)")
+  if (!mobileExplorer) return
+
+  // Only apply on mobile (check if fixed/sticky behavior is relevant or use media query in JS? 
+  // Easier to just toggle class and let CSS media query handle the visual effect)
+
+  const st = window.scrollY || document.documentElement.scrollTop
+  // threshold of 50px to avoid jitter at top
+  if (st > lastScrollTop && st > 50) {
+    // Scrolling down
+    mobileExplorer.classList.add("nav-hidden")
+  } else {
+    // Scrolling up
+    mobileExplorer.classList.remove("nav-hidden")
+  }
+  lastScrollTop = st <= 0 ? 0 : st // For Mobile or negative scrolling
+}, { passive: true })

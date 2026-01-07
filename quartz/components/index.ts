@@ -24,7 +24,10 @@ import Comments from "./Comments"
 import Flex from "./Flex"
 import ConditionalRender from "./ConditionalRender"
 
+import PrintPage from "./PrintPage"
+
 export {
+  PrintPage,
   ArticleTitle,
   Content,
   TagContent,

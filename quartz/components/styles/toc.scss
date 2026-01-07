@@ -66,3 +66,53 @@ ul.toc-content.overflow {
     }
   }
 }
+
+button.mobile-toc {
+  display: none;
+
+  @media all and ($mobile) {
+    display: flex;
+    position: fixed;
+    z-index: 102;
+    // same top as explorer button but on the other side?
+    // Explorer button is usually handled by layout. 
+    // Let's place this top-right.
+    top: 24px; // Align with the hamburger menu (approx)
+    right: 20px;
+    padding: 0; // Remove padding to reduce size footprint
+    background: transparent;
+    border: none;
+    color: var(--darkgray);
+    cursor: pointer;
+
+    html[dir="rtl"] & {
+      right: unset;
+      left: 20px;
+    }
+  }
+}
+
+@media all and ($mobile) {
+  .toc-content {
+    &.mobile-active {
+      display: block !important;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100vw;
+      height: 100vh;
+      background: var(--light);
+      z-index: 101;
+      padding: 4rem 2rem 2rem 2rem;
+      box-sizing: border-box;
+      overflow-y: auto;
+
+      html[dir="rtl"] & {
+        right: unset;
+        left: 0;
+      }
+    }
+
+
+  }
+}
